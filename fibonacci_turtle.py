@@ -4,6 +4,8 @@ from time import sleep
 
 
 sides = 3
+quit_confirm = False
+
 
 turtle.ht()
 end = turtle.Turtle(visible=False)
@@ -11,7 +13,6 @@ turtle.register_shape('quit.gif')
 end.shape('quit.gif')
 end.teleport(0,-575)
 end.st()
-
 home = turtle.Turtle(visible=False)
 turtle.register_shape('home.gif')
 home.shape('home.gif')
@@ -45,6 +46,8 @@ button_plus.teleport(200, 148)
 button_minus.teleport(-200, 150)
 button_confirm.teleport(3, 35)
 
+quit_writer = turtle.Turtle(visible=False)
+quit_writer.teleport(0,-500)
 writer = turtle.Turtle(visible=False)
 
 sidecount_writer = turtle.Turtle(visible=False)
@@ -57,6 +60,9 @@ turtle.title("Fibonacci Sequence Project")
 
 
 def start(x,y):
+    global quit_confirm
+    quit_writer.clear()
+    quit_confirm = False
     sidecount_writer.clear()
     turtle.clear()
     writer.clear()
@@ -67,7 +73,7 @@ def start(x,y):
     home.ht()
     end.teleport(0, -575)
     writer.teleport(0, 600)
-    writer.write("Welcome! What would you like to draw?",False, CENTER, ("Oswald", 30, "bold"))
+    writer.write("Welcome! What shape would you like to experience the fibonacci sequence in?",False, CENTER, ("Oswald", 30, "bold"))
     writer.teleport(-300, 250)
     writer.write("circle", False, "center",("Oswald", 12, "bold"))
     writer.teleport(300, 250)
@@ -82,6 +88,9 @@ def shape(numsides,size):
         shaper.left(360/numsides)
 
 def fibonacci_circle(x,y):
+    global quit_confirm
+    quit_writer.clear()
+    quit_confirm = False
     button_confirm.ht()
     home.ht()
     end.ht()
@@ -89,20 +98,22 @@ def fibonacci_circle(x,y):
     button_other.ht()
     button_circle.ht()
     shaper.teleport(0, -500)
-    shaper.st()
     last = [1,1]
     shaper.pendown()
     for i in range(1,17):
         last.append(last[i] + last[i-1])
         shaper.circle(last[i])
         print(last[i])
+        sleep(0.2)
     end.teleport(470, -575)
     end.st()
     home.st()
-    shaper.ht()
 
 def fibonacci_shape(x, y):
+    global quit_confirm
     global sides
+    quit_writer.clear()
+    quit_confirm = False
     home.ht()
     end.ht()
     writer.clear()
@@ -131,9 +142,17 @@ home.st()
 shaper.ht()
 
 def exit(x, y):
-    quit()
+    global quit_confirm
+    if quit_confirm:
+        quit()
+    else:
+        quit_confirm = True
+        quit_writer.write("Press the quit button again to confirm",False, CENTER, ("Oswald", 12, "bold"))
 
 def other(x, y):
+    global quit_confirm
+    quit_writer.clear()
+    quit_confirm = False
     button_circle.ht()
     button_other.ht()
     writer.clear()
