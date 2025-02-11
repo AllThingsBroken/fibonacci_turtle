@@ -1,7 +1,7 @@
 import turtle
 from tkinter import *
 from time import sleep
-
+from sys import exit
 
 sides = 3
 quit_confirm = False
@@ -97,7 +97,7 @@ def fibonacci_circle(x,y):
     writer.clear()
     button_other.ht()
     button_circle.ht()
-    shaper.teleport(0, -500)
+    shaper.teleport(0, -475)
     last = [1,1]
     shaper.pendown()
     for i in range(1,17):
@@ -141,13 +141,12 @@ end.st()
 home.st()
 shaper.ht()
 
-def exit(x, y):
+def end_program(x, y):
     global quit_confirm
-    if quit_confirm:
-        quit()
-    else:
-        quit_confirm = True
-        quit_writer.write("Press the quit button again to confirm",False, CENTER, ("Oswald", 12, "bold"))
+    while quit_confirm:
+        exit()    
+    quit_writer.write("Press the quit button again to confirm",False, CENTER, ("Oswald", 12, "bold"))
+    quit_confirm = True
 
 def other(x, y):
     global quit_confirm
@@ -183,7 +182,7 @@ def less_sides(x,y):
 start(0,0)
 button_plus.onclick(more_sides)
 button_minus.onclick(less_sides)
-end.onclick(exit)
+end.onclick(end_program)
 button_circle.onclick(fibonacci_circle)
 home.onclick(start)
 button_other.onclick(other)
